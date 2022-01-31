@@ -1,0 +1,23 @@
+{
+    "name": "phputil/slackapi",
+    "description": "utility library of Slack API for PHP.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "SlackAPIUtil\\": "src/SlackAPIUtil/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tomohiro Hotta",
+            "email": "hottomo0610@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "monolog/monolog": "^2.3"
+    },
+    "require-dev": {
+        "psy/psysh": "@stable"
+    }
+}
