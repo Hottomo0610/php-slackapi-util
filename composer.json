@@ -20,5 +20,6 @@
     },
     "require-dev": {
         "psy/psysh": "@stable"
-    }
+    },
+    "license": "MIT"
 }
