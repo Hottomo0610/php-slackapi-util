@@ -1,0 +1,1 @@
+PHPでSlackAPIを使用するときのために作成したUtilityクラスです。
