@@ -1,5 +1,5 @@
 {
-    "name": "phputil/slackapi",
+    "name": "hottomo/hottomo",
     "description": "utility library of Slack API for PHP.",
     "type": "library",
     "autoload": {
