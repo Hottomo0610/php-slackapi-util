@@ -1,6 +1,8 @@
 <?php 
 namespace SlackAPIUtil;
 
+use DateTime;
+
 /**
  * @author Tomohito Hotta
  * 
@@ -16,11 +18,11 @@ class Utility
     /**
      * 所属するワークスペース内に存在するpublicチャンネルの一覧を取得します。
      * 
-     * $token (String)
+     * $token (string)
      * 
      * @return
      */
-    public function getChannelList($token) 
+    public function getChannelList(string $token) 
     {
         //SlackのWPワークスペース内にあるチャンネルの情報を取得
 
@@ -56,11 +58,11 @@ class Utility
     /**
      * 特定のチャンネルからメッセージを取得します。
      * 
-     * $token, $channelId (String)
+     * $token, $channelId (string)
      * 
      * @return
      */
-    public function getMessage($token, $channelId) 
+    public function getMessage(string $token, string $channelId) 
     {
         $ch = curl_init();
         curl_setopt_array($ch, [
@@ -78,19 +80,22 @@ class Utility
     /**
      * 特定の期間に特定のチャンネルに投稿されたメッセージを取得します。
      * 
-     * $token, $channelId (String)
-     * $before_time, $near_time (DateTime, format to UnixTime)
+     * $token, $channelId (string)
+     * $before_time, $near_time (DateTime)
      * 
      * @return
      */
-    public function getMessageInPeriod($token, $channelId, $before_time, $near_time) 
+    public function getMessageInPeriod(string $token, string $channelId, DateTime $before_time, DateTime $near_time) 
     {
          //Slackの特定のチャンネルから、今日から〇日前までのメッセージを取得
+
+         $before_time_U = $before_time -> format('U');
+         $near_time_U = $near_time -> format('U');
 
          $ch = curl_init();
          curl_setopt_array($ch, [
              CURLOPT_RETURNTRANSFER => 1,
-             CURLOPT_URL => "https://slack.com/api/conversations.history?token=$token&channel=$channelId&inclusive=true&oldest=$before_time&latest=$near_time"
+             CURLOPT_URL => "https://slack.com/api/conversations.history?token=$token&channel=$channelId&inclusive=true&oldest=$before_time_U&latest=$near_time_U"
          ]);
          $resp = curl_exec($ch);
          curl_close($ch);
@@ -103,11 +108,11 @@ class Utility
     /**
      * SlackAPIの設定画面で取得したWebHookURLを用いて、メッセージを特定のチャンネルに送信します。
      * 
-     * $hookURL, $rawJson (String)
+     * $hookURL, $rawJson (string)
      * 
      * @return
      */
-    public function sendMessage($hookURL, $rawJson) 
+    public function sendMessage(string $hookURL, string $rawJson) 
     {
         //CURLでSlackに送信
 
