@@ -4,7 +4,7 @@ PHPでSlackAPIを使用するときのために作成したUtilityクラスで�
 
 ## 利用方法
 
-    `*composer require hottomo/slack-api-utility*`
+    composer require hottomo/slack-api-utility
 
 ## 関連リンク
 <https://packagist.org/packages/hottomo/slack-api-utility>
