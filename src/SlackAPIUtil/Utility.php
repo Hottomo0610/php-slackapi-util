@@ -49,6 +49,46 @@ class Utility
     }
 
 
+
+    public function getUsersList($token){
+        //SlackのWPワークスペースに属する全てのアクティブユーザーの情報を取得
+        $post_data = [
+            'token' => $token
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => "https://slack.com/api/users.list"
+        ]);
+        $resp = curl_exec($ch);
+        curl_close($ch);
+
+        $decodedData = json_decode($resp, true);
+        $users_list = $decodedData['members'];
+        //error_log(print_r($users_list, true));
+
+        //不要なユーザーやbotを除外して、さらにデータを加工
+        $valid_users_list = array();
+
+        foreach($users_list as $value){
+            if($value["is_bot"]!=1){
+                if($value["deleted"]!=1){
+                    if ($value["is_restricted"]!=1) {
+                        if ($value["name"]!="slackbot") {
+                            $valid_users_list["<@".$value["id"].">"] = $value["real_name"];
+                        }
+                    }
+                }
+            }
+        }
+
+        return $valid_users_list;
+    }
+
+
     /**
      * 特定のチャンネルからメッセージを取得します。
      * 
