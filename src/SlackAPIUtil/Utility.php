@@ -86,6 +86,7 @@ class Utility
                 }
             }
         }
+        error_log(print_r($valid_users_list, true));
 
         return $valid_users_list;
     }
