@@ -78,7 +78,9 @@ class Utility
                 if($value["deleted"]!=1){
                     if ($value["is_restricted"]!=1) {
                         if ($value["name"]!="slackbot") {
-                            $valid_users_list["<@".$value["id"].">"] = $value["real_name"];
+                            $real_name = str_replace(" ", "", $value["real_name"]);
+                            $real_name2 = str_replace("　", "", $$real_name);
+                            $valid_users_list["<@".$value["id"].">"] = $real_name2;
                         }
                     }
                 }
