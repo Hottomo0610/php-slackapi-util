@@ -79,14 +79,12 @@ class Utility
                     if ($value["is_restricted"]!=1) {
                         if ($value["name"]!="slackbot") {
                             $real_name = str_replace(" ", "", $value["real_name"]);
-                            $real_name2 = str_replace("　", "", $$real_name);
-                            $valid_users_list["<@".$value["id"].">"] = $real_name2;
+                            $valid_users_list["<@".$value["id"].">"] = $real_name;
                         }
                     }
                 }
             }
         }
-        error_log(print_r($valid_users_list, true));
 
         return $valid_users_list;
     }
